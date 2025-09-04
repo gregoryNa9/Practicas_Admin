@@ -1,44 +1,76 @@
 import React from 'react';
+import './style.css';
 
-function Dashboard() {
+function Dashboard({ onNavigate }) {
+  /*
+    RECOMENDACIONES PARA CONECTAR EL BACKEND EN DASHBOARD
+    - Define REACT_APP_API_BASE con la URL base de tu API.
+      PowerShell: $env:REACT_APP_API_BASE='http://localhost:3000/api'; npm start
+    - Habilita CORS en el backend para el origen del frontend.
+    - Endpoints recomendados para estadísticas:
+        GET  /api/dashboard/stats        -> estadísticas generales (eventos, invitaciones, confirmaciones)
+        GET  /api/invitaciones/count     -> conteo de invitaciones por estado
+        GET  /api/eventos/count          -> conteo de eventos
+    - Implementa autenticación con tokens JWT si es necesario.
+    - Considera usar React Query o SWR para cache de datos.
+    - Agrega loading states y manejo de errores.
+  */
   return (
     <div className="d-flex min-vh-100 bg-light">
       {/* Sidebar */}
-      <aside style={{ background: '#043474', color: '#fff', width: '220px', padding: '1.5rem' }}>
+      <aside className="sidebar">
         <div className="text-center mb-4">
-          <img src="/logo.jpg" alt="Logo" style={{ width: '150px' }} />
+          <img src="/logo.jpg" alt="Logo" className="sidebar-logo" />
         </div>
         <nav>
           <ul className="nav flex-column">
             <li className="nav-item mb-2">
-              <a className="nav-link active text-white" href="#">
+              <button 
+                className="nav-link active sidebar-nav-item btn btn-link p-0 text-start w-100" 
+                onClick={() => onNavigate('dashboard')}
+              >
                 <i className="fa-solid fa-house me-2"></i>Dashboard
-              </a>
+              </button>
             </li>
             <li className="nav-item mb-2">
-              <a className="nav-link text-white" href="#">
+              <button 
+                className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" 
+                onClick={() => onNavigate('eventos')}
+              >
                 <i className="fa-solid fa-calendar-days me-2"></i>Eventos
-              </a>
+              </button>
             </li>
             <li className="nav-item mb-2">
-              <a className="nav-link text-white" href="#">
+              <button 
+                className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" 
+                onClick={() => onNavigate('invitaciones')}
+              >
                 <i className="fa-solid fa-envelope me-2"></i>Invitaciones
-              </a>
+              </button>
             </li>
             <li className="nav-item mb-2">
-              <a className="nav-link text-white" href="#">
+              <button 
+                className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" 
+                onClick={() => onNavigate('confirmaciones')}
+              >
                 <i className="fa-solid fa-check me-2"></i>Confirmaciones
-              </a>
+              </button>
             </li>
             <li className="nav-item mb-2">
-              <a className="nav-link text-white" href="#">
+              <button 
+                className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" 
+                onClick={() => onNavigate('reportes')}
+              >
                 <i className="fa-solid fa-file me-2"></i>Reportes
-              </a>
+              </button>
             </li>
             <li className="nav-item mt-4">
-              <a className="nav-link text-white" href="#">
+              <button 
+                className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" 
+                onClick={() => onNavigate('login')}
+              >
                 <i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
-              </a>
+              </button>
             </li>
           </ul>
         </nav>
@@ -46,37 +78,31 @@ function Dashboard() {
 
       {/* Main Content */}
       <main className="flex-grow-1 p-5">
-        <h1 className="text-primary fw-bold">Dashboard</h1>
+        <h1 className="page-title">Dashboard</h1>
         <h2 className="text-info fw-normal">Bienvenido, usuario</h2>
         <div className="row my-4 g-4">
           <div className="col-md-4">
-            <div className="card shadow-sm text-center">
-              <div className="card-body">
-                <div className="mb-2">
-                  Eventos creados <i className="fa-solid fa-calendar-days"></i>
-                </div>
-                <div className="text-info fw-bold fs-4">#eventos</div>
+            <div className="stats-card">
+              <div className="stats-label">
+                Eventos creados <i className="fa-solid fa-calendar-days"></i>
               </div>
+              <div className="stats-number">#eventos</div>
             </div>
           </div>
           <div className="col-md-4">
-            <div className="card shadow-sm text-center">
-              <div className="card-body">
-                <div className="mb-2">
-                  Invitaciones enviadas <i className="fa-solid fa-envelope"></i>
-                </div>
-                <div className="text-info fw-bold fs-4">#invitaciones</div>
+            <div className="stats-card">
+              <div className="stats-label">
+                Invitaciones enviadas <i className="fa-solid fa-envelope"></i>
               </div>
+              <div className="stats-number">#invitaciones</div>
             </div>
           </div>
           <div className="col-md-4">
-            <div className="card shadow-sm text-center">
-              <div className="card-body">
-                <div className="mb-2">
-                  Confirmaciones <i className="fa-solid fa-check"></i>
-                </div>
-                <div className="text-info fw-bold fs-4">#confirmaciones</div>
+            <div className="stats-card">
+              <div className="stats-label">
+                Confirmaciones <i className="fa-solid fa-check"></i>
               </div>
+              <div className="stats-number">#confirmaciones</div>
             </div>
           </div>
         </div>

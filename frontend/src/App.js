@@ -1,33 +1,40 @@
-/*import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;*/
-import React from 'react';
+import React, { useState } from 'react';
 import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+import Invitaciones from './components/invitaciones';
+import Eventos from './components/eventos';
+import Confirmaciones from './components/Confirmaciones';
 
 function App() {
-  return <Login />;
+  const [currentView, setCurrentView] = useState('login'); // 'login', 'dashboard', 'invitaciones', 'eventos', 'confirmaciones'
+
+  // Función para manejar la navegación
+  const handleNavigation = (view) => {
+    setCurrentView(view);
+  };
+
+  // Renderizar vista actual
+  if (currentView === 'login') {
+    return <Login onLogin={() => setCurrentView('dashboard')} />;
+  }
+
+  if (currentView === 'dashboard') {
+    return <Dashboard onNavigate={handleNavigation} />;
+  }
+
+  if (currentView === 'invitaciones') {
+    return <Invitaciones onNavigate={handleNavigation} />;
+  }
+
+  if (currentView === 'eventos') {
+    return <Eventos onNavigate={handleNavigation} />;
+  }
+
+  if (currentView === 'confirmaciones') {
+    return <Confirmaciones onNavigate={handleNavigation} />;
+  }
+
+  return <Login onLogin={() => setCurrentView('dashboard')} />;
 }
 
 export default App;
