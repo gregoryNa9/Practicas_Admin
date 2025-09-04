@@ -26,5 +26,13 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregoryNa9/Practicas_Admin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gregoryNa9/Practicas_Admin/issues"
+  },
+  "homepage": "https://github.com/gregoryNa9/Practicas_Admin#readme"
 }
