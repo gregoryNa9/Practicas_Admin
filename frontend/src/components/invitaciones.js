@@ -135,17 +135,17 @@ function Invitaciones({ onNavigate }) {
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button className="nav-link text-white btn btn-link p-0 text-start w-100" onClick={() => onNavigate('eventos')}>
+							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('eventos')}>
 								<i className="fa-solid fa-calendar-days me-2"></i>Eventos
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button className="nav-link active text-white btn btn-link p-0 text-start w-100" onClick={() => onNavigate('invitaciones')}>
+							<button className="nav-link active sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('invitaciones')}>
 								<i className="fa-solid fa-envelope me-2"></i>Invitaciones
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button className="nav-link text-white btn btn-link p-0 text-start w-100" onClick={() => onNavigate('confirmaciones')}>
+							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('confirmaciones')}>
 								<i className="fa-solid fa-check me-2"></i>Confirmaciones
 							</button>
 						</li>

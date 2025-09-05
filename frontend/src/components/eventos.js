@@ -151,87 +151,32 @@ function Eventos({ onNavigate }) {
 				<nav>
 					<ul className="nav flex-column">
 						<li className="nav-item mb-2">
-							<button 
-								className="nav-link text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('dashboard')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('dashboard')}>
 								<i className="fa-solid fa-gauge me-2"></i>Dashboard
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button 
-								className="nav-link active text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('eventos')}
-								style={{ 
-									textDecoration: 'none',
-									color: '#009FE3',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#009FE3'}
-							>
+							<button className="nav-link active sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('eventos')}>
 								<i className="fa-solid fa-calendar-days me-2"></i>Eventos
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button 
-								className="nav-link text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('invitaciones')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('invitaciones')}>
 								<i className="fa-solid fa-envelope me-2"></i>Invitaciones
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button 
-								className="nav-link text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('confirmaciones')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('confirmaciones')}>
 								<i className="fa-solid fa-check me-2"></i>Confirmaciones
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button 
-								className="nav-link text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('reportes')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('reportes')}>
 								<i className="fa-solid fa-file me-2"></i>Reportes
 							</button>
 						</li>
 						<li className="nav-item mt-4">
-							<button 
-								className="nav-link text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('login')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('login')}>
 								<i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
 							</button>
 						</li>

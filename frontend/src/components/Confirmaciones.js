@@ -135,21 +135,13 @@ function Confirmaciones({ onNavigate }) {
 				<nav>
 					<ul className="nav flex-column">
 						<li className="nav-item mb-2">
-							<button className="nav-link text-white btn btn-link p-0 text-start w-100" onClick={() => onNavigate('dashboard')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('dashboard')}>
 								<i className="fa-solid fa-gauge me-2"></i>Dashboard
 							</button>
 						</li>
 						<li className="nav-item mb-2">
 							<button 
-								className="nav-link text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('eventos')}
+								className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('eventos')}
 								style={{ 
 									textDecoration: 'none',
 									transition: 'all 0.3s ease'
