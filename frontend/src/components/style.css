@@ -269,6 +269,105 @@
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
+/* ===== BOTONES DE ACCIÓN DE TABLA ===== */
+.btn-action {
+  transition: color 0.3s ease;
+  padding: 0.25rem;
+}
+
+.btn-action:hover {
+  color: #009FE3 !important;
+}
+
+.btn-action-danger {
+  transition: color 0.3s ease;
+  padding: 0.25rem;
+  color: #dc3545;
+}
+
+.btn-action-danger:hover {
+  color: #dc3545 !important;
+}
+
+/* ===== TABLA DE EVENTOS ===== */
+.table-events-header {
+  background-color: #043474;
+}
+
+.table-events-header th {
+  color: white;
+  border: 0;
+}
+
+/* ===== BOTONES DE CONFIRMACIONES ===== */
+.btn-confirmaciones-primary {
+  background-color: #009FE3;
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-confirmaciones-primary:hover {
+  background-color: #007bb5;
+  color: white;
+}
+
+.btn-confirmaciones-secondary {
+  background-color: #043474;
+  border: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-confirmaciones-secondary:hover {
+  background-color: #032a5a;
+  color: white;
+}
+
+/* ===== SIDEBAR NAVIGATION ===== */
+.sidebar-nav-hover {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.sidebar-nav-hover:hover {
+  color: #009FE3 !important;
+}
+
+.sidebar-nav-active {
+  text-decoration: none;
+  background-color: #009FE3;
+  transition: all 0.3s ease;
+}
+
+.sidebar-nav-active:hover {
+  background-color: #009FE3 !important;
+}
+
+/* ===== TABLA DE CONFIRMACIONES ===== */
+.table-confirmaciones-header {
+  background-color: #043474;
+}
+
+.table-confirmaciones-header th {
+  color: white;
+  border: 0;
+}
+
+.btn-ver-mas {
+  text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 0;
+}
+
+.btn-ver-mas:hover {
+  color: #009FE3 !important;
+}
+
+.table-empty-row {
+  background-color: #f8f9fa;
+}
+
 /* ===== ANIMACIONES ===== */
 .fade-in {
   animation: fadeIn 0.3s ease-in-out;

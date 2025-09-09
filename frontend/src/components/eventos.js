@@ -145,38 +145,38 @@ function Eventos({ onNavigate }) {
 		<div className="d-flex min-vh-100 bg-light">
 			{/* Sidebar igual a otros componentes */}
 			<aside className="sidebar">
-				<div className="text-center mb-4">
+        		<div className="text-center mb-4">
 					<img src="/logo.jpg" alt="Logo" className="sidebar-logo" />
 				</div>
 				<nav>
 					<ul className="nav flex-column">
 						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('dashboard')}>
-								<i className="fa-solid fa-gauge me-2"></i>Dashboard
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('dashboard')}>
+								<i className="fa-solid fa-house me-2"></i>Dashboard
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button className="nav-link active sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('eventos')}>
+							<button className="nav-link active sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('eventos')}>
 								<i className="fa-solid fa-calendar-days me-2"></i>Eventos
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('invitaciones')}>
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('invitaciones')}>
 								<i className="fa-solid fa-envelope me-2"></i>Invitaciones
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('confirmaciones')}>
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('confirmaciones')}>
 								<i className="fa-solid fa-check me-2"></i>Confirmaciones
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('reportes')}>
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('reportes')}>
 								<i className="fa-solid fa-file me-2"></i>Reportes
 							</button>
 						</li>
 						<li className="nav-item mt-4">
-							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('login')}>
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
 								<i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
 							</button>
 						</li>
@@ -196,12 +196,7 @@ function Eventos({ onNavigate }) {
 						</div>
 						<div className="col-md-3">
 							<label className="form-label">Tipo de evento:</label>
-							<select 
-								className="form-select" 
-								name="tipoEvento" 
-								value={filtros.tipoEvento} 
-								onChange={handleInputChange}
-							>
+							<select className="form-select" name="tipoEvento" value={filtros.tipoEvento} onChange={handleInputChange}>
 								<option value="">Seleccionar tipo</option>
 								{tiposEvento.map(tipo => (
 									<option key={tipo} value={tipo}>{tipo}</option>
@@ -210,14 +205,7 @@ function Eventos({ onNavigate }) {
 						</div>
 						<div className="col-md-3">
 							<label className="form-label">Fecha del evento:</label>
-							<input 
-								type="text" 
-								className="form-control" 
-								placeholder="dd/mm/aaaa"
-								name="fechaEvento" 
-								value={filtros.fechaEvento} 
-								onChange={handleInputChange} 
-							/>
+							<input type="text" className="form-control" placeholder="dd/mm/aaaa"name="fechaEvento" value={filtros.fechaEvento} onChange={handleInputChange} />
 						</div>
 						<div className="col-auto d-flex gap-2">
 							<button className="btn btn-primary" onClick={handleBuscar}>
@@ -226,7 +214,7 @@ function Eventos({ onNavigate }) {
 							<button className="btn btn-outline-secondary" onClick={handleLimpiar}>
 								<i className="fa-solid fa-eraser me-1"></i>Limpiar
 							</button>
-							<button className="btn btn-primary">
+							<button className="btn btn-primary" onClick={() => onNavigate('new-evento')}>
 								<i className="fa-solid fa-plus me-1"></i>Nuevo
 							</button>
 						</div>
@@ -288,7 +276,7 @@ function Eventos({ onNavigate }) {
 					<div className="card-body p-0">
 						<div className="table-responsive">
 							<table className="table table-hover mb-0">
-								<thead style={{ backgroundColor: '#043474' }}>
+								<thead className="table-events-header">
 									<tr>
 										<th className="text-white border-0">EVENTO</th>
 										<th className="text-white border-0">CATEGORIA</th>
@@ -311,31 +299,13 @@ function Eventos({ onNavigate }) {
 											<td className="border-0">{evento.fechaCreacion}</td>
 											<td className="border-0 text-end">
 												<div className="btn-group" role="group">
-													<button 
-														className="btn btn-link text-primary p-1" 
-														title="Ver"
-														style={{ transition: 'color 0.3s ease' }}
-														onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-														onMouseLeave={(e) => e.target.style.color = '#0d6efd'}
-													>
+													<button className="btn btn-link text-primary btn-action" title="Ver">
 														<i className="fa-solid fa-eye"></i>
 													</button>
-													<button 
-														className="btn btn-link text-primary p-1" 
-														title="Editar"
-														style={{ transition: 'color 0.3s ease' }}
-														onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-														onMouseLeave={(e) => e.target.style.color = '#0d6efd'}
-													>
+													<button className="btn btn-link text-primary btn-action" title="Editar">
 														<i className="fa-solid fa-pen-to-square"></i>
 													</button>
-													<button 
-														className="btn btn-link text-danger p-1" 
-														title="Eliminar"
-														style={{ transition: 'color 0.3s ease' }}
-														onMouseEnter={(e) => e.target.style.color = '#dc3545'}
-														onMouseLeave={(e) => e.target.style.color = '#dc3545'}
-													>
+													<button className="btn btn-link btn-action-danger" title="Eliminar">
 														<i className="fa-solid fa-trash-can"></i>
 													</button>
 												</div>

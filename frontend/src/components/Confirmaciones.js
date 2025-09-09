@@ -129,83 +129,38 @@ function Confirmaciones({ onNavigate }) {
 		<div className="d-flex min-vh-100 bg-light">
 			{/* Sidebar igual a otros componentes */}
 			<aside className="sidebar">
-				<div className="text-center mb-4">
+        		<div className="text-center mb-4">
 					<img src="/logo.jpg" alt="Logo" className="sidebar-logo" />
 				</div>
 				<nav>
 					<ul className="nav flex-column">
 						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('dashboard')}>
-								<i className="fa-solid fa-gauge me-2"></i>Dashboard
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('dashboard')}>
+								<i className="fa-solid fa-house me-2"></i>Dashboard
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button 
-								className="nav-link sidebar-nav-item btn btn-link p-0 text-start w-100" onClick={() => onNavigate('eventos')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('eventos')}>
 								<i className="fa-solid fa-calendar-days me-2"></i>Eventos
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button 
-								className="nav-link text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('invitaciones')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('invitaciones')}>
 								<i className="fa-solid fa-envelope me-2"></i>Invitaciones
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button 
-								className="nav-link active text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('confirmaciones')}
-								style={{ 
-									textDecoration: 'none',
-									backgroundColor: '#009FE3',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.backgroundColor = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.backgroundColor = '#009FE3'}
-							>
+							<button className="nav-link active sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('confirmaciones')}>
 								<i className="fa-solid fa-check me-2"></i>Confirmaciones
 							</button>
 						</li>
 						<li className="nav-item mb-2">
-							<button 
-								className="nav-link text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('reportes')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('reportes')}>
 								<i className="fa-solid fa-file me-2"></i>Reportes
 							</button>
 						</li>
 						<li className="nav-item mt-4">
-							<button 
-								className="nav-link text-white btn btn-link p-0 text-start w-100" 
-								onClick={() => onNavigate('login')}
-								style={{ 
-									textDecoration: 'none',
-									transition: 'all 0.3s ease'
-								}}
-								onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-								onMouseLeave={(e) => e.target.style.color = '#fff'}
-							>
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
 								<i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
 							</button>
 						</li>
@@ -221,24 +176,13 @@ function Confirmaciones({ onNavigate }) {
 				<div className="bg-white rounded shadow-sm p-3 mb-4">
 					<div className="row g-2 align-items-end">
 						<div className="col-auto">
-							<button 
-								className="btn text-white" 
-								style={{ 
-									backgroundColor: '#009FE3',
-									border: 'none'
-								}}
-							>
+							<button className="btn btn-confirmaciones-primary">
 								Filtros
 							</button>
 						</div>
 						<div className="col-md-3">
 							<label className="form-label">Tipo de evento:</label>
-							<select 
-								className="form-select" 
-								name="tipoEvento" 
-								value={filtros.tipoEvento} 
-								onChange={handleInputChange}
-							>
+							<select className="form-select" name="tipoEvento" value={filtros.tipoEvento} onChange={handleInputChange}>
 								<option value="">Seleccionar tipo</option>
 								{tiposEvento.map(tipo => (
 									<option key={tipo} value={tipo}>{tipo}</option>
@@ -247,34 +191,13 @@ function Confirmaciones({ onNavigate }) {
 						</div>
 						<div className="col-md-3">
 							<label className="form-label">Fecha del evento:</label>
-							<input 
-								type="text" 
-								className="form-control" 
-								placeholder="dd/mm/aaaa"
-								name="fechaEvento" 
-								value={filtros.fechaEvento} 
-								onChange={handleInputChange} 
-							/>
+							<input type="text" className="form-control" placeholder="dd/mm/aaaa" name="fechaEvento" value={filtros.fechaEvento} onChange={handleInputChange} />
 						</div>
 						<div className="col-auto d-flex gap-2">
-							<button 
-								className="btn text-white" 
-								onClick={handleBuscar}
-								style={{ 
-									backgroundColor: '#043474',
-									border: 'none'
-								}}
-							>
+							<button className="btn btn-confirmaciones-secondary" onClick={handleBuscar}>
 								<i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
 							</button>
-							<button 
-								className="btn text-white" 
-								onClick={handleLimpiar}
-								style={{ 
-									backgroundColor: '#009FE3',
-									border: 'none'
-								}}
-							>
+							<button className="btn btn-confirmaciones-primary" onClick={handleLimpiar}>
 								<i className="fa-solid fa-eraser me-1"></i>Limpiar
 							</button>
 						</div>
@@ -287,7 +210,7 @@ function Confirmaciones({ onNavigate }) {
 					<div className="card-body p-0">
 						<div className="table-responsive">
 							<table className="table table-hover mb-0">
-								<thead style={{ backgroundColor: '#043474' }}>
+								<thead className="table-confirmaciones-header">
 									<tr>
 										<th className="text-white border-0">INVITADO</th>
 										<th className="text-white border-0">EVENTO</th>
@@ -309,15 +232,7 @@ function Confirmaciones({ onNavigate }) {
 											</td>
 											<td className="border-0">{confirmacion.fecha}</td>
 											<td className="border-0 text-end">
-												<button 
-													className="btn btn-link text-primary p-0" 
-													style={{ 
-														textDecoration: 'none',
-														transition: 'color 0.3s ease'
-													}}
-													onMouseEnter={(e) => e.target.style.color = '#009FE3'}
-													onMouseLeave={(e) => e.target.style.color = '#0d6efd'}
-												>
+												<button className="btn btn-link text-primary btn-ver-mas">
 													<i className="fa-solid fa-eye me-1"></i>Ver más
 												</button>
 											</td>
@@ -326,7 +241,7 @@ function Confirmaciones({ onNavigate }) {
 									{/* Filas vacías para completar la tabla como en la imagen */}
 									{!loading && confirmaciones.length < 6 && (
 										Array.from({ length: 6 - confirmaciones.length }).map((_, index) => (
-											<tr key={`empty-${index}`} style={{ backgroundColor: '#f8f9fa' }}>
+											<tr key={`empty-${index}`} className="table-empty-row">
 												<td className="border-0">&nbsp;</td>
 												<td className="border-0">&nbsp;</td>
 												<td className="border-0">&nbsp;</td>
