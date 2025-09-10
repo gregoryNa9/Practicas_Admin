@@ -1,35 +1,156 @@
-// src/components/Reportes.js
 import React, { useState, useEffect } from 'react';
+import { Line, Doughnut } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
 import './style.css';
-//import logo from "../logo.jpg"; // Ajusta la ruta de tu logo según tu estructura de archivos
 
-//const Reportes = () => {}
+// ✅ Registrar Chart.js
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 function Reportes({ onNavigate }) {
-    /*
-      RECOMENDACIONES PARA CONECTAR EL BACKEND EN DASHBOARD
-      - Define REACT_APP_API_BASE con la URL base de tu API.
-        PowerShell: $env:REACT_APP_API_BASE='http://localhost:3000/api'; npm start
-      - Habilita CORS en el backend para el origen del frontend.
-      - Endpoints recomendados para estadísticas:
-          GET  /api/dashboard/stats        -> estadísticas generales (eventos, invitaciones, confirmaciones)
-          GET  /api/invitaciones/count     -> conteo de invitaciones por estado
-          GET  /api/eventos/count          -> conteo de eventos
-      - Implementa autenticación con tokens JWT si es necesario.
-      - Considera usar React Query o SWR para cache de datos.
-      - Agrega loading states y manejo de errores.
-    */
-    return (
-        
+  const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:3000/api';
+
+  const [filtros, setFiltros] = useState({
+    tipoEvento: '',
+    fechaEvento: ''
+  });
+  const [reportes, setReportes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [stats, setStats] = useState({
+    totalInvitados: '#total_invitados',
+    asistentes: '#Asistentes-reales',
+    confirmados: '#total_registrados',
+    eventosTotales: '#eventos-total',
+    top10Invitados: '#10_mas-invitados',
+    top10Asisten: '#10 mas_asisten',
+    invitacionesConfirmadas: 300,
+    invitacionesNoConfirmadas: 200,
+    safetyScore: 9.3
+  });
+
+  const tiposEvento = ['Macroevento', 'Adicional', 'Especial'];
+
+  useEffect(() => {
+    let cancel = false;
+    async function load() {
+      try {
+        setLoading(true);
+        setError('');
+
+        let dataReportes = [];
+        try {
+          const res = await fetch(`${API_BASE}/reportes`);
+          if (res.ok) {
+            dataReportes = await res.json();
+          }
+        } catch {}
+
+        if (!dataReportes || dataReportes.length === 0) {
+          // Datos de respaldo
+          dataReportes = [
+            { id: 1, nombre: 'JUAN ALAN PEREZ ZAMBRANO', empresa: 'PRONACA', eventos: 10 },
+            { id: 2, nombre: 'ANA LUCIA RODRIGUEZ ESPINOZA', empresa: 'PRONACA', eventos: 5 },
+            { id: 3, nombre: 'ANTHONY GEOVANNY MEJIA GAIBOR', empresa: 'POLACA', eventos: 7 },
+            { id: 4, nombre: 'RONALD JOSUE PURUNCAJAS GONZALEZ', empresa: 'POLACA', eventos: 9 }
+          ];
+        }
+
+        if (!cancel) setReportes(dataReportes);
+      } catch (e) {
+        if (!cancel) setError('No se pudo cargar la información.');
+      } finally {
+        if (!cancel) setLoading(false);
+      }
+    }
+    load();
+    return () => {
+      cancel = true;
+    };
+  }, [API_BASE]);
+
+  const handleInputChange = e => {
+    setFiltros({ ...filtros, [e.target.name]: e.target.value });
+  };
+
+  const handleBuscar = () => {};
+  const handleLimpiar = () => setFiltros({ tipoEvento: '', fechaEvento: '' });
+
+  // 📊 Datos para el gráfico de línea
+  const lineData = {
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Invitados',
+        data: [100, 200, 150, 250, 180, 300],
+        borderColor: '#009FE3',
+        backgroundColor: 'rgba(0,159,227,0.2)',
+        tension: 0.4,
+        fill: true
+      }
+    ]
+  };
+
+  const lineOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      title: { display: false }
+    },
+    scales: {
+      y: { beginAtZero: true }
+    }
+  };
+
+  // 📊 Datos para el gráfico de "Safety"
+  const doughnutData = {
+    labels: ['Confirmadas', 'No confirmadas'],
+    datasets: [
+      {
+        data: [stats.invitacionesConfirmadas, stats.invitacionesNoConfirmadas],
+        backgroundColor: ['#009FE3', '#E0E0E0'],
+        borderWidth: 0
+      }
+    ]
+  };
+
+  const doughnutOptions = {
+    cutout: '70%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    }
+  };
+
+  return (
     <div className="d-flex min-vh-100 bg-light">
-      {/* ASIDE reutilizado del Dashboard */}
+      {/* Sidebar */}
       <aside className="sidebar">
         <div className="text-center mb-4">
-        <img src="/logo.jpg" alt="Logo" className="sidebar-logo" />
+          <img src="/logo.jpg" alt="Logo" className="sidebar-logo" />
         </div>
         <nav>
           <ul className="nav flex-column">
             <li className="nav-item mb-2">
-              <button className="nav-link active sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('dashboard')}>
+              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('dashboard')}>
                 <i className="fa-solid fa-house me-2"></i>Dashboard
               </button>
             </li>
@@ -49,7 +170,7 @@ function Reportes({ onNavigate }) {
               </button>
             </li>
             <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('reportes')}>
+              <button className="nav-link active sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('reportes')}>
                 <i className="fa-solid fa-file me-2"></i>Reportes
               </button>
             </li>
@@ -62,106 +183,117 @@ function Reportes({ onNavigate }) {
         </nav>
       </aside>
 
-      {/* CONTENIDO PRINCIPAL */}
-      <main className="main-content">
-        <h1 className="title">Reportes</h1>
+      {/* Contenido principal */}
+      <main className="flex-grow-1 p-5">
+        <h2 className="text-primary fw-bold mb-3">Reportes</h2>
 
-        {/* FILTROS */}
-        <div className="filters">
-          <button className="btn-filtro">Filtros</button>
-          <select className="select-evento">
-            <option value="">Tipo de evento</option>
-            <option value="conferencia">Conferencia</option>
-            <option value="seminario">Seminario</option>
-            <option value="taller">Taller</option>
-          </select>
-          <input type="date" className="input-fecha" />
-          <button className="btn-buscar">Buscar</button>
-          <button className="btn-limpiar">Limpiar</button>
+        {/* Filtros */}
+        <div className="bg-white rounded shadow-sm p-3 mb-4">
+          <div className="row g-2 align-items-end">
+            <div className="col-auto">
+              <button className="btn btn-primary active">Filtros</button>
+            </div>
+            <div className="col-md-3">
+              <label className="form-label">Tipo de evento:</label>
+              <select className="form-select" name="tipoEvento" value={filtros.tipoEvento} onChange={handleInputChange}>
+                <option value="">Seleccionar tipo</option>
+                {tiposEvento.map(tipo => (
+                  <option key={tipo} value={tipo}>{tipo}</option>
+                ))}
+              </select>
+            </div>
+            <div className="col-md-3">
+              <label className="form-label">Fecha del evento:</label>
+              <input type="text" className="form-control" placeholder="dd/mm/aaaa" name="fechaEvento" value={filtros.fechaEvento} onChange={handleInputChange} />
+            </div>
+            <div className="col-auto d-flex gap-2">
+              <button className="btn btn-primary" onClick={handleBuscar}>
+                <i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
+              </button>
+              <button className="btn btn-outline-secondary" onClick={handleLimpiar}>
+                <i className="fa-solid fa-eraser me-1"></i>Limpiar
+              </button>
+            </div>
+          </div>
+          {error && <div className="alert alert-danger mt-3 mb-0">{error}</div>}
         </div>
 
-        {/* TARJETAS DE INFORMACIÓN */}
-        <div className="cards-container">
-          <div className="card">
-            <span className="card-title">Invitados</span>
-            <span className="card-value">#total_invitados</span>
+        {/* Tarjetas de estadísticas */}
+        <div className="row g-3 mb-4">
+          <div className="col-md-2"><div className="stats-card"><h6>Invitados</h6><h4 className="text-primary">{stats.totalInvitados}</h4></div></div>
+          <div className="col-md-2"><div className="stats-card"><h6>Asistentes</h6><h4 className="text-primary">{stats.asistentes}</h4></div></div>
+          <div className="col-md-2"><div className="stats-card"><h6>Confirmados</h6><h4 className="text-primary">{stats.confirmados}</h4></div></div>
+          <div className="col-md-2"><div className="stats-card"><h6>Eventos creados</h6><h4 className="text-primary">{stats.eventosTotales}</h4></div></div>
+          <div className="col-md-2"><div className="stats-card"><h6>Top 10</h6><h4 className="text-primary">{stats.top10Invitados}</h4></div></div>
+          <div className="col-md-2"><div className="stats-card"><h6>Top 10</h6><h4 className="text-primary">{stats.top10Asisten}</h4></div></div>
+        </div>
+
+        {/* Gráfico + Safety */}
+        <div className="row g-3 mb-4">
+          <div className="col-md-8">
+            <div className="stats-card">
+              <h6 className="mb-3">Estado de invitados por evento</h6>
+              <Line data={lineData} options={lineOptions} />
+            </div>
           </div>
-          <div className="card">
-            <span className="card-title">Asistentes</span>
-            <span className="card-value">#Asistentes-reales</span>
-          </div>
-          <div className="card">
-            <span className="card-title">Confirmados</span>
-            <span className="card-value">#total_registrados</span>
-          </div>
-          <div className="card">
-            <span className="card-title">Eventos creados</span>
-            <span className="card-value">#eventos-total</span>
-          </div>
-          <div className="card">
-            <span className="card-title">Top 10</span>
-            <span className="card-value">#10_mas-invitados</span>
-          </div>
-          <div className="card">
-            <span className="card-title">Top 10</span>
-            <span className="card-value">#10_mas_asisten</span>
+          <div className="col-md-4">
+            <div className="stats-card d-flex flex-column justify-content-center align-items-center">
+              <Doughnut data={doughnutData} options={doughnutOptions} style={{ maxHeight: '200px', maxWidth: '200px' }} />
+              <div className="position-absolute text-center">
+                <h3 className="text-primary fw-bold">{stats.safetyScore}</h3>
+                <small className="text-muted">Total Score</small>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* GRÁFICOS */}
-        <div className="charts-container">
-          <div className="chart">
-            <h2>Estado de invitados por evento</h2>
-            <div className="chart-placeholder">[ Gráfico de línea aquí ]</div>
+        {/* Tabla */}
+        <div className="card shadow-sm">
+          <div className="card-body p-0">
+            <div className="table-responsive">
+              <table className="table table-hover mb-0">
+                <thead className="table-events-header">
+                  <tr>
+                    <th className="text-white border-0">NOMBRE COMPLETO</th>
+                    <th className="text-white border-0">EMPRESA</th>
+                    <th className="text-white border-0">EVENTOS ASISTIDOS</th>
+                    <th className="text-white border-0 text-end">ACCIONES</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {loading && (
+                    <tr><td colSpan="4" className="text-center py-4">Cargando...</td></tr>
+                  )}
+                  {!loading && reportes.map(item => (
+                    <tr key={item.id}>
+                      <td className="border-0">{item.nombre}</td>
+                      <td className="border-0">{item.empresa}</td>
+                      <td className="border-0">{item.eventos}</td>
+                      <td className="border-0 text-end">
+                        <button className="btn btn-link btn-ver-mas" onClick={() => onNavigate('historial')}>
+                          <i className="fa-solid fa-eye me-1"></i>Ver más
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                  {!loading && reportes.length < 6 && (
+                    Array.from({ length: 6 - reportes.length }).map((_, index) => (
+                      <tr key={`empty-${index}`}>
+                        <td className="border-0">&nbsp;</td>
+                        <td className="border-0">&nbsp;</td>
+                        <td className="border-0">&nbsp;</td>
+                        <td className="border-0">&nbsp;</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div className="chart">
-            <h2>Invitaciones confirmadas</h2>
-            <div className="chart-placeholder">[ Gráfico circular aquí ]</div>
-          </div>
-        </div>
-
-        {/* TABLA DE INVITADOS */}
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre Completo</th>
-                <th>Empresa</th>
-                <th>Eventos Asistidos</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>JUAN ALAN PEREZ ZAMBRANO</td>
-                <td>PRONACA</td>
-                <td>10</td>
-                <td><button className="btn-ver">👁 Ver más</button></td>
-              </tr>
-              <tr>
-                <td>ANA LUCIA RODRIGUEZ ESPINOZA</td>
-                <td>PRONACA</td>
-                <td>5</td>
-                <td><button className="btn-ver">👁 Ver más</button></td>
-              </tr>
-              <tr>
-                <td>ANTHONY GEOVANNY MEJÍA GAIBOR</td>
-                <td>POLACA</td>
-                <td>7</td>
-                <td><button className="btn-ver">👁 Ver más</button></td>
-              </tr>
-              <tr>
-                <td>RONALD JOSUE PURUNCAJAS GONZALEZ</td>
-                <td>POLACA</td>
-                <td>9</td>
-                <td><button className="btn-ver">👁 Ver más</button></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </main>
     </div>
   );
-};
+}
 
 export default Reportes;

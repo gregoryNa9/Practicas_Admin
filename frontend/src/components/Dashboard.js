@@ -1,20 +1,69 @@
 import React from 'react';
 import './style.css';
 
+// 📊 Importar Chart.js y react-chartjs-2
+import { Line, Doughnut } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+} from 'chart.js';
+
+// ✅ Registrar los módulos necesarios de Chart.js
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
+
 function Dashboard({ onNavigate }) {
-  /*
-    RECOMENDACIONES PARA CONECTAR EL BACKEND EN DASHBOARD
-    - Define REACT_APP_API_BASE con la URL base de tu API.
-      PowerShell: $env:REACT_APP_API_BASE='http://localhost:3000/api'; npm start
-    - Habilita CORS en el backend para el origen del frontend.
-    - Endpoints recomendados para estadísticas:
-        GET  /api/dashboard/stats        -> estadísticas generales (eventos, invitaciones, confirmaciones)
-        GET  /api/invitaciones/count     -> conteo de invitaciones por estado
-        GET  /api/eventos/count          -> conteo de eventos
-    - Implementa autenticación con tokens JWT si es necesario.
-    - Considera usar React Query o SWR para cache de datos.
-    - Agrega loading states y manejo de errores.
-  */
+  // 📊 Datos del gráfico de línea (estado de invitados)
+  const lineData = {
+    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Invitados confirmados',
+        data: [120, 150, 180, 200, 170, 220],
+        borderColor: '#009FE3',
+        backgroundColor: 'rgba(0,159,227,0.2)',
+        tension: 0.4,
+        fill: true
+      }
+    ]
+  };
+
+  const lineOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      y: { beginAtZero: true }
+    }
+  };
+
+  // 📊 Datos del gráfico circular (Safety score)
+  const doughnutData = {
+    labels: ['Safety', 'Resto'],
+    datasets: [
+      {
+        data: [93, 7], // 9.3 sobre 10 equivale a 93%
+        backgroundColor: ['#00bfff', '#e0e0e0'],
+        borderWidth: 0
+      }
+    ]
+  };
+
+  const doughnutOptions = {
+    cutout: '70%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { enabled: false }
+    }
+  };
+
   return (
     <div className="d-flex min-vh-100 bg-light">
       {/* Sidebar */}
@@ -93,7 +142,7 @@ function Dashboard({ onNavigate }) {
             <div className="card shadow-sm">
               <div className="card-body">
                 <div className="fw-bold mb-2">Estado de invitados por evento</div>
-                <div style={{ height: '120px', background: 'linear-gradient(180deg, #00bfff33 60%, #fff 100%)', borderRadius: '10px' }}></div>
+                <Line data={lineData} options={lineOptions} />
               </div>
             </div>
           </div>
@@ -108,13 +157,12 @@ function Dashboard({ onNavigate }) {
                     Invitaciones sin confirmar<br /><span className="fw-bold fs-5">200</span>
                   </div>
                 </div>
-                <div className="mt-3">
-                  <div className="fw-bold fs-2 text-info">9.3</div>
-                  <div className="text-muted">Total Score</div>
-                  <svg width="80" height="80" style={{ marginTop: '10px' }}>
-                    <circle cx={40} cy={40} r={35} stroke="#00bfff" strokeWidth={8} fill="none" strokeDasharray={220} strokeDashoffset={40} />
-                  </svg>
-                  <div className="text-info fw-bold mt-2">Safety</div>
+                <div className="mt-3 position-relative" style={{ width: '120px', margin: '0 auto' }}>
+                  <Doughnut data={doughnutData} options={doughnutOptions} />
+                  <div className="position-absolute top-50 start-50 translate-middle text-center">
+                    <div className="fw-bold fs-4 text-info">9.3</div>
+                    <div className="text-muted small">Safety</div>
+                  </div>
                 </div>
               </div>
             </div>
