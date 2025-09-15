@@ -8,6 +8,7 @@ import NewEvento from './components/New-evento';
 import FormRegistro from './components/Form-registro';
 import Reportes from './components/Reportes';
 import Historial from './components/Historial';
+import NewUser from './components/New-User';
 
 function App() {
   const [currentView, setCurrentView] = useState('login'); // 'login', 'dashboard', 'invitaciones', 'eventos', 'confirmaciones'
@@ -52,6 +53,10 @@ function App() {
 
   if (currentView === 'historial') {  
     return <Historial onNavigate={handleNavigation} />;
+  }
+
+  if (currentView === 'new-user') {
+    return <NewUser onNavigate={handleNavigation} />;
   }
 
   return <Login onLogin={() => setCurrentView('dashboard')} />;

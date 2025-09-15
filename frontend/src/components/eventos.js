@@ -175,6 +175,11 @@ function Eventos({ onNavigate }) {
 								<i className="fa-solid fa-file me-2"></i>Reportes
 							</button>
 						</li>
+						<li className="nav-item mb-2">
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('new-user')}>
+								<i className="fa-solid fa-user-plus me-2"></i>Nuevo Usuario
+							</button>
+						</li>
 						<li className="nav-item mt-4">
 							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
 								<i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
@@ -191,10 +196,12 @@ function Eventos({ onNavigate }) {
 				{/* Filtros */}
 				<div className="bg-white rounded shadow-sm p-3 mb-4">
 					<div className="row g-2 align-items-end">
-						<div className="col-auto">
-							<button className="btn btn-primary active">Filtros</button>
+						<div className="col-12 col-md-auto">
+							<button className="btn btn-primary active w-100">Filtros</button>
 						</div>
-						<div className="col-md-3">
+					</div>
+					<div className="row g-2 mt-1">
+						<div className="col-12 col-md-6">
 							<label className="form-label">Tipo de evento:</label>
 							<select className="form-select" name="tipoEvento" value={filtros.tipoEvento} onChange={handleInputChange}>
 								<option value="">Seleccionar tipo</option>
@@ -203,18 +210,24 @@ function Eventos({ onNavigate }) {
 								))}
 							</select>
 						</div>
-						<div className="col-md-3">
+						<div className="col-12 col-md-6">
 							<label className="form-label">Fecha del evento:</label>
-							<input type="text" className="form-control" placeholder="dd/mm/aaaa"name="fechaEvento" value={filtros.fechaEvento} onChange={handleInputChange} />
+							<input type="text" className="form-control" placeholder="dd/mm/aaaa" name="fechaEvento" value={filtros.fechaEvento} onChange={handleInputChange} />
 						</div>
-						<div className="col-auto d-flex gap-2">
-							<button className="btn btn-primary" onClick={handleBuscar}>
+					</div>
+					<div className="row g-2 mt-2">
+						<div className="col-12 col-md-4 d-grid">
+							<button className="btn btn-primary w-100" onClick={handleBuscar}>
 								<i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
 							</button>
-							<button className="btn btn-outline-secondary" onClick={handleLimpiar}>
+						</div>
+						<div className="col-12 col-md-4 d-grid">
+							<button className="btn btn-outline-secondary w-100" onClick={handleLimpiar}>
 								<i className="fa-solid fa-eraser me-1"></i>Limpiar
 							</button>
-							<button className="btn btn-primary" onClick={() => onNavigate('new-evento')}>
+						</div>
+						<div className="col-12 col-md-4 d-grid">
+							<button className="btn btn-primary w-100" onClick={() => onNavigate('new-evento')}>
 								<i className="fa-solid fa-plus me-1"></i>Nuevo
 							</button>
 						</div>
@@ -223,48 +236,42 @@ function Eventos({ onNavigate }) {
 				</div>
 
 				{/* Tarjetas de resumen */}
-				<div className="row g-4 mb-4">
-					<div className="col-md-4">
-						<div className="card shadow-sm">
-							<div className="card-body">
+				<div className="row my-4 g-4">
+					<div className="col-12 col-md-6 col-lg-4">
+						<div className="stats-card equal-card">
+							<div className="card-body p-0">
 								<div className="d-flex justify-content-between align-items-start">
 									<div>
-										<h6 className="card-title text-muted mb-2">Evento Activo</h6>
-										<h4 className="text-primary fw-bold mb-0">{estadisticas.eventoActivo}</h4>
+										<h6 className="card-title text-muted mb-2 stats-label">Evento Activo <i className="fa-solid fa-square-check "></i> </h6>
+										<h4 className="text-primary mb-0">{estadisticas.eventoActivo}</h4>
 									</div>
-									<div className="bg-primary text-white rounded p-2">
-										<i className="fa-solid fa-square-check"></i>
-									</div>
+									
 								</div>
 							</div>
 						</div>
 					</div>
-					<div className="col-md-4">
-						<div className="card shadow-sm">
-							<div className="card-body">
+					<div className="col-12 col-md-6 col-lg-4">
+						<div className="stats-card equal-card">
+							<div className="card-body p-0">
 								<div className="d-flex justify-content-between align-items-start">
 									<div>
-										<h6 className="card-title text-muted mb-2">Invitados</h6>
+										<h6 className="card-title text-muted mb-2 stats-label">Invitados <i className="fa-solid fa-envelope"></i></h6>
 										<h4 className="text-primary fw-bold mb-0">{estadisticas.totalInvitados}</h4>
 									</div>
-									<div className="bg-primary text-white rounded p-2">
-										<i className="fa-solid fa-envelope"></i>
-									</div>
+									
 								</div>
 							</div>
 						</div>
 					</div>
-					<div className="col-md-4">
-						<div className="card shadow-sm">
-							<div className="card-body">
+					<div className="col-12 col-md-6 col-lg-4">
+						<div className="stats-card equal-card">
+							<div className="card-body p-0">
 								<div className="d-flex justify-content-between align-items-start">
 									<div>
-										<h6 className="card-title text-muted mb-2">Confirmados</h6>
+										<h6 className="card-title text-muted mb-2 stats-label">Confirmados <i className="fa-solid fa-calendar-check "></i></h6>
 										<h4 className="text-primary fw-bold mb-0">{estadisticas.totalConfirmados}</h4>
 									</div>
-									<div className="bg-primary text-white rounded p-2">
-										<i className="fa-solid fa-calendar-check"></i>
-									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -276,7 +283,8 @@ function Eventos({ onNavigate }) {
 					<div className="card-body p-0">
 						<div className="table-responsive">
 							<table className="table table-hover mb-0">
-								<thead className="table-events-header">
+								<thead className="table-events-header ">
+								
 									<tr>
 										<th className="text-white border-0">EVENTO</th>
 										<th className="text-white border-0">CATEGORIA</th>

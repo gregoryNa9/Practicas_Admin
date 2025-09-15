@@ -103,6 +103,11 @@ function Historial({ onNavigate }) {
                 <i className="fa-solid fa-file me-2"></i>Reportes
               </button>
             </li>
+            <li className="nav-item mb-2">
+              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('new-user')}>
+                <i className="fa-solid fa-user-plus me-2"></i>Nuevo Usuario
+              </button>
+            </li>
             <li className="nav-item mt-4">
               <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
                 <i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
@@ -120,10 +125,12 @@ function Historial({ onNavigate }) {
         {/* Filtros */}
         <div className="bg-white rounded shadow-sm p-3 mb-4">
           <div className="row g-2 align-items-end">
-            <div className="col-auto">
-              <button className="btn btn-primary active">Filtros</button>
+            <div className="col-12 col-md-auto">
+              <button className="btn btn-primary active w-100">Filtros</button>
             </div>
-            <div className="col-md-3">
+          </div>
+          <div className="row g-2 mt-1">
+            <div className="col-12 col-md-6">
               <label className="form-label">Tipo de evento:</label>
               <select className="form-select" name="tipoEvento" value={filtros.tipoEvento} onChange={handleInputChange}>
                 <option value="">Seleccionar tipo</option>
@@ -132,7 +139,7 @@ function Historial({ onNavigate }) {
                 ))}
               </select>
             </div>
-            <div className="col-md-3">
+            <div className="col-12 col-md-6">
               <label className="form-label">Fecha del evento:</label>
               <input
                 type="text"
@@ -143,11 +150,15 @@ function Historial({ onNavigate }) {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="col-auto d-flex gap-2">
-              <button className="btn btn-primary" onClick={handleBuscar}>
+          </div>
+          <div className="row g-2 mt-2">
+            <div className="col-12 col-md-6 d-grid">
+              <button className="btn btn-primary w-100" onClick={handleBuscar}>
                 <i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
               </button>
-              <button className="btn btn-outline-secondary" onClick={handleLimpiar}>
+            </div>
+            <div className="col-12 col-md-6 d-grid">
+              <button className="btn btn-outline-secondary w-100" onClick={handleLimpiar}>
                 <i className="fa-solid fa-eraser me-1"></i>Limpiar
               </button>
             </div>
@@ -156,7 +167,7 @@ function Historial({ onNavigate }) {
         </div>
 
         {/* Tabla de historial */}
-        <div className="card shadow-sm">
+        <div className="stats-card equal-card">
           <div className="card-body p-0">
             <div className="table-responsive">
               <table className="table table-hover mb-0">

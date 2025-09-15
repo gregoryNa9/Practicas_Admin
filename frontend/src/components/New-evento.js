@@ -77,6 +77,11 @@ function NewEvento({ onNavigate }) {
 								<i className="fa-solid fa-file me-2"></i>Reportes
 							</button>
 						</li>
+						<li className="nav-item mb-2">
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('new-user')}>
+								<i className="fa-solid fa-user-plus me-2"></i>Nuevo Usuario
+							</button>
+						</li>
 						<li className="nav-item mt-4">
 							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
 								<i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
@@ -270,28 +275,43 @@ function NewEvento({ onNavigate }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="d-flex justify-content-center gap-3 mt-4">
-          <button 
-            className="btn d-flex align-items-center"
-            style={{ backgroundColor: '#043474', color: 'white' }}
-            onClick={() => onNavigate('form-registro')}
-          >
-            <i className="fa-solid fa-pen me-2"></i>Editar Formulario de Registro
-          </button>
-          <button 
-            className="btn d-flex align-items-center"
-            style={{ backgroundColor: '#043474', color: 'white' }}
-            onClick={handleGuardar}
-          >
-            <i className="fa-solid fa-floppy-disk me-2"></i>Guardar
-          </button>
-          <button 
-            className="btn d-flex align-items-center"
-            style={{ backgroundColor: 'white', color: '#6c757d', border: '1px solid #dee2e6' }}
-            onClick={handleLimpiar}
-          >
-            Limpiar
-          </button>
+        <div className="row mt-4 g-2">
+          <div className="col-12 col-md-3 d-grid">
+            <button 
+              className="btn d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: '#043474', color: 'white' }}
+              onClick={() => onNavigate('form-registro')}
+            >
+              <i className="fa-solid fa-pen me-2"></i>Editar Formulario de Registro
+            </button>
+          </div>
+          <div className="col-12 col-md-3 d-grid">
+            <button 
+              className="btn d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: '#043474', color: 'white' }}
+              onClick={() => onNavigate('lista-invitados')}
+            >
+              <i className="fa-solid fa-clipboard-list me-2"></i>Lista de usuarios a invitar
+            </button>
+          </div>
+          <div className="col-12 col-md-3 d-grid">
+            <button 
+              className="btn d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: '#043474', color: 'white' }}
+              onClick={handleGuardar}
+            >
+              <i className="fa-solid fa-floppy-disk me-2"></i>Guardar
+            </button>
+          </div>
+          <div className="col-12 col-md-3 d-grid">
+            <button 
+              className="btn d-flex align-items-center justify-content-center"
+              style={{ backgroundColor: 'white', color: '#6c757d', border: '1px solid #dee2e6' }}
+              onClick={handleLimpiar}
+            >
+              Limpiar
+            </button>
+          </div>
         </div>
       </main>
     </div>

@@ -174,6 +174,11 @@ function Reportes({ onNavigate }) {
                 <i className="fa-solid fa-file me-2"></i>Reportes
               </button>
             </li>
+            <li className="nav-item mb-2">
+              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('new-user')}>
+                <i className="fa-solid fa-user-plus me-2"></i>Nuevo Usuario
+              </button>
+            </li>
             <li className="nav-item mt-4">
               <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
                 <i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
@@ -190,10 +195,12 @@ function Reportes({ onNavigate }) {
         {/* Filtros */}
         <div className="bg-white rounded shadow-sm p-3 mb-4">
           <div className="row g-2 align-items-end">
-            <div className="col-auto">
-              <button className="btn btn-primary active">Filtros</button>
+            <div className="col-12 col-md-auto">
+            <div className="mb-2 fw-bold text-info">Filtros</div>
             </div>
-            <div className="col-md-3">
+          </div>
+          <div className="row g-2 mt-1">
+            <div className="col-12 col-md-6 col-lg-4">
               <label className="form-label">Tipo de evento:</label>
               <select className="form-select" name="tipoEvento" value={filtros.tipoEvento} onChange={handleInputChange}>
                 <option value="">Seleccionar tipo</option>
@@ -202,15 +209,27 @@ function Reportes({ onNavigate }) {
                 ))}
               </select>
             </div>
-            <div className="col-md-3">
+            <div className="col-12 col-md-6 col-lg-4">
               <label className="form-label">Fecha del evento:</label>
               <input type="text" className="form-control" placeholder="dd/mm/aaaa" name="fechaEvento" value={filtros.fechaEvento} onChange={handleInputChange} />
             </div>
-            <div className="col-auto d-flex gap-2">
-              <button className="btn btn-primary" onClick={handleBuscar}>
+            <div className="col-lg-4 d-grid">
+              <button className="btn btn-primary d-none d-lg-block h-70 mb-1" onClick={handleBuscar}>
                 <i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
               </button>
-              <button className="btn btn-outline-secondary" onClick={handleLimpiar}>
+              <button className="btn btn-outline-secondary d-none d-lg-block h-70" onClick={handleLimpiar}>
+                <i className="fa-solid fa-eraser me-1"></i>Limpiar
+              </button>
+            </div>
+          </div>
+          <div className="row g-2 mt-2">
+            <div className="col-12 col-md-6 d-grid">
+              <button className="btn btn-primary d-none d-sm-block d-lg-none w-100" onClick={handleBuscar}>
+                <i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
+              </button>
+            </div>
+            <div className="col-12 col-md-6 col-lg-4 d-grid">
+              <button className="btn btn-outline-secondary d-none d-sm-block d-lg-none w-100" onClick={handleLimpiar}>
                 <i className="fa-solid fa-eraser me-1"></i>Limpiar
               </button>
             </div>
@@ -220,23 +239,23 @@ function Reportes({ onNavigate }) {
 
         {/* Tarjetas de estadísticas */}
         <div className="row g-3 mb-4">
-          <div className="col-md-2"><div className="stats-card"><h6>Invitados</h6><h4 className="text-primary">{stats.totalInvitados}</h4></div></div>
-          <div className="col-md-2"><div className="stats-card"><h6>Asistentes</h6><h4 className="text-primary">{stats.asistentes}</h4></div></div>
-          <div className="col-md-2"><div className="stats-card"><h6>Confirmados</h6><h4 className="text-primary">{stats.confirmados}</h4></div></div>
-          <div className="col-md-2"><div className="stats-card"><h6>Eventos creados</h6><h4 className="text-primary">{stats.eventosTotales}</h4></div></div>
-          <div className="col-md-2"><div className="stats-card"><h6>Top 10</h6><h4 className="text-primary">{stats.top10Invitados}</h4></div></div>
-          <div className="col-md-2"><div className="stats-card"><h6>Top 10</h6><h4 className="text-primary">{stats.top10Asisten}</h4></div></div>
+          <div className="col-12 col-md-6 col-lg-4"><div className="stats-card equal-card"><h6 className="mb-1">Invitados</h6><h4 className="text-primary m-0">{stats.totalInvitados}</h4></div></div>
+          <div className="col-12 col-md-6 col-lg-4"><div className="stats-card equal-card"><h6 className="mb-1">Asistentes</h6><h4 className="text-primary m-0">{stats.asistentes}</h4></div></div>
+          <div className="col-12 col-md-6 col-lg-4"><div className="stats-card equal-card"><h6 className="mb-1">Confirmados</h6><h4 className="text-primary m-0">{stats.confirmados}</h4></div></div>
+          <div className="col-12 col-md-6 col-lg-4"><div className="stats-card equal-card"><h6 className="mb-1">Eventos creados</h6><h4 className="text-primary m-0">{stats.eventosTotales}</h4></div></div>
+          <div className="col-12 col-md-6 col-lg-4"><div className="stats-card equal-card"><h6 className="mb-1">Top 10</h6><h4 className="text-primary m-0">{stats.top10Invitados}</h4></div></div>
+          <div className="col-12 col-md-6 col-lg-4"><div className="stats-card equal-card"><h6 className="mb-1">Top 10</h6><h4 className="text-primary m-0">{stats.top10Asisten}</h4></div></div>
         </div>
 
         {/* Gráfico + Safety */}
         <div className="row g-3 mb-4">
-          <div className="col-md-8">
+          <div className="col-12 col-xl-8">
             <div className="stats-card">
               <h6 className="mb-3">Estado de invitados por evento</h6>
               <Line data={lineData} options={lineOptions} />
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-12 col-xl-4">
             <div className="stats-card d-flex flex-column justify-content-center align-items-center">
               <Doughnut data={doughnutData} options={doughnutOptions} style={{ maxHeight: '200px', maxWidth: '200px' }} />
               <div className="position-absolute text-center">
@@ -271,7 +290,7 @@ function Reportes({ onNavigate }) {
                       <td className="border-0">{item.eventos}</td>
                       <td className="border-0 text-end">
                         <button className="btn btn-link btn-ver-mas" onClick={() => onNavigate('historial')}>
-                          <i className="fa-solid fa-eye me-1"></i>Ver más
+                          <i className="fa-solid fa-eye me-1"></i>Historial
                         </button>
                       </td>
                     </tr>

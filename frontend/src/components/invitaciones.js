@@ -154,6 +154,11 @@ function Invitaciones({ onNavigate }) {
 								<i className="fa-solid fa-file me-2"></i>Reportes
 							</button>
 						</li>
+						<li className="nav-item mb-2">
+							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('new-user')}>
+								<i className="fa-solid fa-user-plus me-2"></i>Nuevo Usuario
+							</button>
+						</li>
 						<li className="nav-item mt-4">
 							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
 								<i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
@@ -170,18 +175,18 @@ function Invitaciones({ onNavigate }) {
 			<div className="bg-white rounded shadow-sm p-3 mb-4">
 				<div className="mb-2 fw-bold text-info">Filtros</div>
 				<div className="row g-2 align-items-end">
-					<div className="col-lg-3 col-md-6">
+					<div className="col-12 col-md-6 col-lg-4">
 						<label className="form-label">Buscar por cédula:</label>
 						<input type="text" className="form-control" name="cedula" value={filtros.cedula} onChange={handleInputChange} />
 					</div>
-					<div className="col-lg-3 col-md-6">
+					<div className="col-12 col-md-6 col-lg-4">
 						<label className="form-label">Por Evento:</label>
 						<select className="form-select" name="evento" value={filtros.evento} onChange={handleInputChange}>
 							<option value="">Todos</option>
 							{eventos.map(ev => <option key={ev} value={ev}>{ev}</option>)}
 						</select>
 					</div>
-					<div className="col-lg-3 col-md-6">
+					<div className="col-12 col-md-6 col-lg-4">
 						<label className="form-label">Por Estado:</label>
 						<select className="form-select" name="estado" value={filtros.estado} onChange={handleInputChange}>
 							<option value="">Todos</option>
@@ -192,19 +197,29 @@ function Invitaciones({ onNavigate }) {
 							))}
 						</select>
 					</div>
-					<div className="col-lg-3 col-md-6 d-flex flex-wrap gap-2">
-						<button className="btn btn-primary" onClick={handleBuscar}>
-							<i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
-						</button>
-						<button className="btn btn-secondary" onClick={handleLimpiar}>
-							<i className="fa-solid fa-eraser me-1"></i>Limpiar
-						</button>
-						<button className="btn btn-success">
-							<i className="fa-solid fa-plus me-1"></i>Crear nueva invitación
-						</button>
-						<button className="btn btn-success" onClick={() => window.open(`${API_BASE}/invitaciones/export`, '_blank') }>
-							<i className="fa-solid fa-file-excel me-1"></i>Exportar en Excel
-						</button>
+					<div className="col-12">
+						<div className="row g-2">
+							<div className="col-12 col-md-6 col-lg-3 d-grid">
+								<button className="btn btn-primary w-100" onClick={handleBuscar}>
+									<i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
+								</button>
+							</div>
+							<div className="col-12 col-md-6 col-lg-3 d-grid">
+								<button className="btn btn-secondary w-100" onClick={handleLimpiar}>
+									<i className="fa-solid fa-eraser me-1"></i>Limpiar
+								</button>
+							</div>
+							<div className="col-12 col-md-6 col-lg-3 d-grid">
+								<button className="btn btn-success w-100">
+									<i className="fa-solid fa-plus me-1"></i>Crear nueva invitación
+								</button>
+							</div>
+							<div className="col-12 col-md-6 col-lg-3 d-grid">
+								<button className="btn btn-success w-100" onClick={() => window.open(`${API_BASE}/invitaciones/export`, '_blank') }>
+									<i className="fa-solid fa-file-excel me-1"></i>Exportar en Excel
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				{error && <div className="alert alert-danger mt-3 mb-0">{error}</div>}
@@ -212,23 +227,23 @@ function Invitaciones({ onNavigate }) {
 			{/* Asignación de invitaciones */}
 			<div className="bg-white rounded shadow-sm p-3 mb-4">
 				<div className="row g-2">
-					<div className="col-md-2">
+					<div className="col-12 col-md-6 col-lg-4">
 						<label className="form-label">Cédula:</label>
 						<input type="text" className="form-control" />
 					</div>
-					<div className="col-md-2">
+					<div className="col-12 col-md-6 col-lg-4">
 						<label className="form-label">Número celular:</label>
 						<input type="text" className="form-control" />
 					</div>
-					<div className="col-md-3">
+					<div className="col-12 col-md-6 col-lg-4">
 						<label className="form-label">Correo:</label>
 						<input type="email" className="form-control" />
 					</div>
-					<div className="col-md-2">
+					<div className="col-12 col-md-6 col-lg-4">
 						<label className="form-label">Código Único:</label>
 						<input type="text" className="form-control" />
 					</div>
-					<div className="col-md-3 d-flex flex-column justify-content-center">
+					<div className="col-12 col-md-6 col-lg-4 d-flex flex-column justify-content-center">
 						<div className="form-check">
 							<input className="form-check-input" type="checkbox" id="correo" defaultChecked />
 							<label className="form-check-label" htmlFor="correo">Correo electrónico</label>
@@ -254,7 +269,7 @@ function Invitaciones({ onNavigate }) {
 				<div className="card-body p-0">
 					<div className="table-responsive">
 						<table className="table table-hover mb-0">
-							<thead className="table-header">
+							<thead className="table-events-header">
 								<tr>
 									<th className="table-cell">INVITADO</th>
 									<th className="table-cell">EVENTO</th>
@@ -281,7 +296,7 @@ function Invitaciones({ onNavigate }) {
 											</td>
 											<td className="table-cell">{inv.fecha || inv.fecha_envio || '-'}</td>
 											<td className="table-cell text-end">
-												<button className="btn-link-custom">
+												<button className="btn btn-link p-0 border-0 bg-transparent btn-link-custom">
 													<i className="fa-solid fa-eye me-1"></i>Ver más
 												</button>
 											</td>
