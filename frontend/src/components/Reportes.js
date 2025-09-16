@@ -12,6 +12,7 @@ import {
   Legend
 } from 'chart.js';
 import './style.css';
+import Menu from './Menu';
 
 // ✅ Registrar Chart.js
 ChartJS.register(
@@ -143,50 +144,7 @@ function Reportes({ onNavigate }) {
   return (
     <div className="d-flex min-vh-100 bg-light">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="text-center mb-4">
-          <img src="/logo.jpg" alt="Logo" className="sidebar-logo" />
-        </div>
-        <nav>
-          <ul className="nav flex-column">
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('dashboard')}>
-                <i className="fa-solid fa-house me-2"></i>Dashboard
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('eventos')}>
-                <i className="fa-solid fa-calendar-days me-2"></i>Eventos
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('invitaciones')}>
-                <i className="fa-solid fa-envelope me-2"></i>Invitaciones
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('confirmaciones')}>
-                <i className="fa-solid fa-check me-2"></i>Confirmaciones
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link active sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('reportes')}>
-                <i className="fa-solid fa-file me-2"></i>Reportes
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('new-user')}>
-                <i className="fa-solid fa-user-plus me-2"></i>Nuevo Usuario
-              </button>
-            </li>
-            <li className="nav-item mt-4">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
-                <i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+      <Menu onNavigate={onNavigate} activeItem="reportes" />
 
       {/* Contenido principal */}
       <main className="flex-grow-1 p-5">
@@ -196,7 +154,7 @@ function Reportes({ onNavigate }) {
         <div className="bg-white rounded shadow-sm p-3 mb-4">
           <div className="row g-2 align-items-end">
             <div className="col-12 col-md-auto">
-            <div className="mb-2 fw-bold text-info">Filtros</div>
+             <div className="mb-2 fw-bold text-info">Filtros</div>
             </div>
           </div>
           <div className="row g-2 mt-1">
@@ -221,7 +179,9 @@ function Reportes({ onNavigate }) {
                 <i className="fa-solid fa-eraser me-1"></i>Limpiar
               </button>
             </div>
+
           </div>
+
           <div className="row g-2 mt-2">
             <div className="col-12 col-md-6 d-grid">
               <button className="btn btn-primary d-none d-sm-block d-lg-none w-100" onClick={handleBuscar}>

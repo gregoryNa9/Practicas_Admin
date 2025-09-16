@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import Menu from './Menu';
 
 // 📊 Importar Chart.js y react-chartjs-2
 import { Line, Doughnut } from 'react-chartjs-2';
@@ -141,87 +142,26 @@ function Dashboard({ onNavigate }) {
   return (
     <div className="d-flex min-vh-100 bg-light">
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="text-center mb-4">
-          <img src="/logo.jpg" alt="Logo" className="sidebar-logo" />
-        </div>
-        <nav>
-          <ul className="nav flex-column">
-            <li className="nav-item mb-2">
-              <button className="nav-link active sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('dashboard')}>
-                <i className="fa-solid fa-house me-2"></i>Dashboard
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('eventos')}>
-                <i className="fa-solid fa-calendar-days me-2"></i>Eventos
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('invitaciones')}>
-                <i className="fa-solid fa-envelope me-2"></i>Invitaciones
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('confirmaciones')}>
-                <i className="fa-solid fa-check me-2"></i>Confirmaciones
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('reportes')}>
-                <i className="fa-solid fa-file me-2"></i>Reportes
-              </button>
-            </li>
-            <li className="nav-item mb-2">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('new-user')}>
-                <i className="fa-solid fa-user-plus me-2"></i>Nuevo Usuario
-              </button>
-            </li>
-            <li className="nav-item mt-4">
-              <button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
-                <i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </aside>
+      <Menu onNavigate={onNavigate} activeItem="dashboard" />
 
       {/* Main Content */}
       <main className="flex-grow-1 p-5">
         <h1 className="page-title">Dashboard</h1>
         <h2 className="text-info fw-normal">Bienvenido, usuario</h2>
-        <div className="row my-4 g-4">
-          <div className="col-12 col-md-6 col-lg-4">
-            <div className="stats-card equal-card">
-              <div className="stats-label">
-                Eventos creados <i className="fa-solid fa-calendar-days"></i>
+        
+        <div className="col-12">
+          <div id="dashboardCarousel" className="carousel slide shadow-sm" data-bs-ride="carousel">
+            
+            {/* Imágenes del carrusel */}
+            <div className="carousel-inner rounded">
+              <div className="carousel-item active">
+                <img src="/grupo.jpg" className="d-block w-100 mb-3" alt="Imagen 1" />
               </div>
-              {/* Sustituir por valor real desde GET /eventos/count → { count } */}
-              {/* Ejemplo: <div className="stats-number">{kpi.eventos}</div> */}
-              <div className="stats-number">#eventos</div>
             </div>
-          </div>
-          <div className="col-12 col-md-6 col-lg-4">
-            <div className="stats-card equal-card">
-              <div className="stats-label">
-                Invitaciones enviadas <i className="fa-solid fa-envelope"></i>
-              </div>
-              {/* Sustituir por valor real desde GET /invitaciones/count → { count } */}
-              {/* Ejemplo: <div className="stats-number">{kpi.invitaciones}</div> */}
-              <div className="stats-number">#invitaciones</div>
-            </div>
-          </div>
-          <div className="col-12 col-md-6 col-lg-4">
-            <div className="stats-card equal-card">
-              <div className="stats-label">
-                Confirmaciones <i className="fa-solid fa-check"></i>
-              </div>
-              {/* Sustituir por valor real desde GET /confirmaciones/count → { count } */}
-              {/* Ejemplo: <div className="stats-number">{kpi.confirmaciones}</div> */}
-              <div className="stats-number">#confirmaciones</div>
-            </div>
+
           </div>
         </div>
+      
         <div className="row g-4">
           <div className="col-12 col-xl-8">
             <div className="card shadow-sm">

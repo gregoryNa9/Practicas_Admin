@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
+import Menu from './Menu';
 
 function Confirmaciones({ onNavigate }) {
 	/*
@@ -127,51 +128,8 @@ function Confirmaciones({ onNavigate }) {
 
 	return (
 		<div className="d-flex min-vh-100 bg-light">
-			{/* Sidebar igual a otros componentes */}
-			<aside className="sidebar">
-        		<div className="text-center mb-4">
-					<img src="/logo.jpg" alt="Logo" className="sidebar-logo" />
-				</div>
-				<nav>
-					<ul className="nav flex-column">
-						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('dashboard')}>
-								<i className="fa-solid fa-house me-2"></i>Dashboard
-							</button>
-						</li>
-						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('eventos')}>
-								<i className="fa-solid fa-calendar-days me-2"></i>Eventos
-							</button>
-						</li>
-						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('invitaciones')}>
-								<i className="fa-solid fa-envelope me-2"></i>Invitaciones
-							</button>
-						</li>
-						<li className="nav-item mb-2">
-							<button className="nav-link active sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('confirmaciones')}>
-								<i className="fa-solid fa-check me-2"></i>Confirmaciones
-							</button>
-						</li>
-						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('reportes')}>
-								<i className="fa-solid fa-file me-2"></i>Reportes
-							</button>
-						</li>
-						<li className="nav-item mb-2">
-							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('new-user')}>
-								<i className="fa-solid fa-user-plus me-2"></i>Nuevo Usuario
-							</button>
-						</li>
-						<li className="nav-item mt-4">
-							<button className="nav-link sidebar-nav-item btn btn-link p-2 text-start w-100" onClick={() => onNavigate('login')}>
-								<i className="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
-							</button>
-						</li>
-					</ul>
-				</nav>
-			</aside>
+		{/* Sidebar */}
+		<Menu onNavigate={onNavigate} activeItem="confirmaciones" />
 
 			{/* Contenido principal */}
 			<main className="flex-grow-1 p-5">
@@ -181,13 +139,11 @@ function Confirmaciones({ onNavigate }) {
 				<div className="bg-white rounded shadow-sm p-3 mb-4">
 					<div className="row g-2 align-items-end">
 						<div className="col-12 col-md-auto">
-							<button className="btn btn-confirmaciones-primary w-100">
-								Filtros
-							</button>
+						<div className="mb-2 fw-bold text-info">Filtros</div>
 						</div>
 					</div>
 					<div className="row g-2 mt-1">
-						<div className="col-12 col-md-6">
+						<div className="col-12 col-md-6 col-lg-4">
 							<label className="form-label">Tipo de evento:</label>
 							<select className="form-select" name="tipoEvento" value={filtros.tipoEvento} onChange={handleInputChange}>
 								<option value="">Seleccionar tipo</option>
@@ -196,19 +152,29 @@ function Confirmaciones({ onNavigate }) {
 								))}
 							</select>
 						</div>
-						<div className="col-12 col-md-6">
+						<div className="col-12 col-md-6 col-lg-4">
 							<label className="form-label">Fecha del evento:</label>
 							<input type="text" className="form-control" placeholder="dd/mm/aaaa" name="fechaEvento" value={filtros.fechaEvento} onChange={handleInputChange} />
 						</div>
+						<div className="col-lg-4 d-grid">
+							<button className="btn btn-primary d-none d-lg-block h-70 mb-1" onClick={handleBuscar}>
+								<i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
+							</button>
+							<button className="btn btn-outline-secondary d-none d-lg-block h-70" onClick={handleLimpiar}>
+								<i className="fa-solid fa-eraser me-1"></i>Limpiar
+							</button>
+						</div>
+
 					</div>
+
 					<div className="row g-2 mt-2">
 						<div className="col-12 col-md-6 d-grid">
-							<button className="btn btn-confirmaciones-secondary w-100" onClick={handleBuscar}>
+							<button className="btn btn-confirmaciones-secondary d-none d-sm-block d-lg-none w-100" onClick={handleBuscar}>
 								<i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
 							</button>
 						</div>
 						<div className="col-12 col-md-6 d-grid">
-							<button className="btn btn-confirmaciones-primary w-100" onClick={handleLimpiar}>
+							<button className="btn btn-confirmaciones-primary d-none d-sm-block d-lg-none w-100" onClick={handleLimpiar}>
 								<i className="fa-solid fa-eraser me-1"></i>Limpiar
 							</button>
 						</div>
