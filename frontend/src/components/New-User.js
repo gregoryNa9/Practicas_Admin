@@ -1,39 +1,102 @@
 import React, { useState } from 'react';
 import './style.css';
 import Menu from './Menu';
+import { Modal, Button } from 'react-bootstrap';
 
 function NewUser({ onNavigate }) {
-  // Estados para filtros y datos
+  // Estado para filtros
   const [filtros, setFiltros] = useState({
     cedula: '',
     apellido: ''
   });
+
   const [error, setError] = useState('');
 
-  // Funciones de filtro y acciones
+  // Estado para modales
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  // Estado para usuario seleccionado
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  // Lista de usuarios simulada
+  const usuarios = [
+    {
+      nombre: 'JUAN ALAN',
+      apellido: 'PEREZ ZAMBRANO',
+      cedula: '1234567890',
+      celular: '0999999999',
+      correo: 'juanperez@gmail.com',
+      empresa: 'PRONACA',
+      cargo: 'Analista de Sistemas',
+      sector: 'Productores / Agroindustria'
+    },
+    {
+      nombre: 'ANA LUCIA',
+      apellido: 'RODRIGUEZ ESPINOZA',
+      cedula: '0987654321',
+      celular: '0852852852',
+      correo: 'analu_rodri@outlook.com',
+      empresa: 'PRONACA',
+      cargo: 'Marketing',
+      sector: 'Comerciantes / Distribuidores'
+    },
+    {
+      nombre: 'ANTHONY GEOVANNY',
+      apellido: 'MEJIA GAIBOR',
+      cedula: '1122334455',
+      celular: '0789789789',
+      correo: 'ant_mejia@hotmail.com',
+      empresa: 'POLACA',
+      cargo: 'Gerente',
+      sector: 'Exportadores'
+    }
+  ];
+
+  // Función para abrir modal de ver más
+  const handleViewUser = (user) => {
+    setSelectedUser(user);
+    setShowViewModal(true);
+  };
+
+  // Función para abrir modal de editar
+  const handleEditUser = (user) => {
+    setSelectedUser(user);
+    setShowEditModal(true);
+  };
+
+  // Función para actualizar campos en el modal de edición
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setSelectedUser({ ...selectedUser, [name]: value });
+  };
+
+  // Funciones de filtro
   const handleInputChange = (e) => {
     setFiltros({ ...filtros, [e.target.name]: e.target.value });
   };
 
   const handleBuscar = () => {
-    // Lógica para buscar usuarios
     console.log('Buscando usuarios con filtros:', filtros);
   };
 
   const handleLimpiar = () => {
     setFiltros({ cedula: '', apellido: '' });
   };
+
   return (
     <div className="d-flex min-vh-100 bg-light">
       {/* Sidebar */}
       <Menu onNavigate={onNavigate} activeItem="new-user" />
 
-      {/* Main Content */}
+      {/* Contenido principal */}
       <main className="flex-grow-1 p-5">
         <h1 className="page-title">Nuevo Usuario/Invitado</h1>
-        <p className="text-muted mb-3">Formulario de registro de un nuevo usuario que se agregará a la base de datos para ser tomado en cuenta en próximos eventos.</p>
+        <p className="text-muted mb-3">
+          Formulario de registro de un nuevo usuario que se agregará a la base de datos para ser tomado en cuenta en próximos eventos.
+        </p>
 
-        {/* Filtros superiores */}
+        {/* Filtros */}
         <div className="bg-white rounded shadow-sm p-3 mb-4">
           <div className="row g-2 align-items-end">
             <div className="col-12 col-md-auto">
@@ -43,9 +106,9 @@ function NewUser({ onNavigate }) {
           <div className="row g-2 mt-1">
             <div className="col-12 col-md-6 col-lg-4">
               <label className="form-label">Cédula:</label>
-              <input 
-                type="text" 
-                className="form-control" 
+              <input
+                type="text"
+                className="form-control"
                 name="cedula"
                 value={filtros.cedula}
                 onChange={handleInputChange}
@@ -53,9 +116,9 @@ function NewUser({ onNavigate }) {
             </div>
             <div className="col-12 col-md-6 col-lg-4">
               <label className="form-label">Apellido:</label>
-              <input 
-                type="text" 
-                className="form-control" 
+              <input
+                type="text"
+                className="form-control"
                 name="apellido"
                 value={filtros.apellido}
                 onChange={handleInputChange}
@@ -63,22 +126,10 @@ function NewUser({ onNavigate }) {
             </div>
 
             <div className="col-lg-4 d-grid">
-              <button className="btn btn-primary d-none d-lg-block h-70 mb-1" onClick={handleBuscar}>
+              <button className="btn btn-primary mb-1" onClick={handleBuscar}>
                 <i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
               </button>
-              <button className="btn btn-outline-secondary d-none d-lg-block h-70" onClick={handleLimpiar}>
-                <i className="fa-solid fa-eraser me-1"></i>Limpiar
-              </button>
-            </div>
-          </div>
-          <div className="row g-2 mt-2">
-            <div className="col-12 col-md-6 d-grid">
-              <button className="btn btn-primary d-none d-sm-block d-lg-none w-100" onClick={handleBuscar}>
-                <i className="fa-solid fa-magnifying-glass me-1"></i>Buscar
-              </button>
-            </div>
-            <div className="col-12 col-md-6 col-lg-4 d-grid">
-              <button className="btn btn-outline-secondary d-none d-sm-block d-lg-none w-100" onClick={handleLimpiar}>
+              <button className="btn btn-outline-secondary" onClick={handleLimpiar}>
                 <i className="fa-solid fa-eraser me-1"></i>Limpiar
               </button>
             </div>
@@ -117,14 +168,31 @@ function NewUser({ onNavigate }) {
               <label className="form-label fw-semibold">CARGO:</label>
               <input type="text" className="form-control" />
             </div>
+
+            {/* Campo SECTOR como SELECT */}
             <div className="col-12 col-md-6">
               <label className="form-label fw-semibold">SECTOR:</label>
-              <input type="text" className="form-control" />
+              <select className="form-control">
+                <option value="">Seleccione un sector</option>
+                <option>Productores / Agroindustria</option>
+                <option>Industriales / Manufactureros</option>
+                <option>Comerciantes / Distribuidores</option>
+                <option>Importadores</option>
+                <option>Exportadores</option>
+                <option>Salud</option>
+                <option>Servicios Empresariales</option>
+                <option>Logística y Transporte</option>
+                <option>Finanzas y Seguros</option>
+                <option>Tecnología e Innovación</option>
+                <option>Turístico</option>
+                <option>Servicios</option>
+                <option>Otro</option>
+              </select>
             </div>
           </div>
           <div className="row g-2 mt-3">
             <div className="col-12 col-md-3 d-grid">
-              <button className="btn" style={{ backgroundColor: '#043474', color: 'white' }}>
+              <button className="btn btn-primary">
                 <i className="fa-solid fa-floppy-disk me-2"></i>Guardar
               </button>
             </div>
@@ -148,27 +216,23 @@ function NewUser({ onNavigate }) {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  { nombre: 'JUAN ALAN PEREZ ZAMBRANO', celular: '0999999999', correo: 'juanperez@gmail.com', empresa: 'PRONACA' },
-                  { nombre: 'ANA LUCIA RODRIGUEZ ESPINOZA', celular: '0852852852', correo: 'analu_rodri@outlook.com', empresa: 'PRONACA' },
-                  { nombre: 'ANTHONY GEOVANNY MEJIA GAIBOR', celular: '0789789789', correo: 'ant_mejia@hotmail.com', empresa: 'POLACA' },
-                  { nombre: 'RONALD JOSUE PURUNCAJAS GONZALEZ', celular: '0456456456', correo: 'ron_puruncjais@hotmail.com', empresa: 'POLACA' }
-                ].map((u, idx) => (
+                {usuarios.map((u, idx) => (
                   <tr key={idx}>
-                    <td>{u.nombre}</td>
+                    <td>{u.nombre} {u.apellido}</td>
                     <td>{u.celular}</td>
                     <td><a href={`mailto:${u.correo}`}>{u.correo}</a></td>
                     <td>{u.empresa}</td>
                     <td className="text-center">
-                      <button className="btn btn-link text-primary"><i className="fa-solid fa-eye"></i></button>
-                      <button className="btn btn-link text-primary"><i className="fa-solid fa-pen"></i></button>
-                      <button className="btn btn-link text-danger"><i className="fa-solid fa-trash"></i></button>
+                      <button className="btn btn-link text-primary" onClick={() => handleViewUser(u)}>
+                        <i className="fa-solid fa-eye"></i>
+                      </button>
+                      <button className="btn btn-link text-primary" onClick={() => handleEditUser(u)}>
+                        <i className="fa-solid fa-pen"></i>
+                      </button>
+                      <button className="btn btn-link text-danger">
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
                     </td>
-                  </tr>
-                ))}
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <tr key={`empty-${i}`}>
-                    <td className="border-0" colSpan="5">&nbsp;</td>
                   </tr>
                 ))}
               </tbody>
@@ -176,6 +240,140 @@ function NewUser({ onNavigate }) {
           </div>
         </div>
       </main>
+
+      {/* Modal Ver Más */}
+      <Modal show={showViewModal} onHide={() => setShowViewModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Información del Usuario</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedUser && (
+            <div>
+              <p><strong>Nombre:</strong> {selectedUser.nombre} {selectedUser.apellido}</p>
+              <p><strong>Cédula:</strong> {selectedUser.cedula}</p>
+              <p><strong>Celular:</strong> {selectedUser.celular}</p>
+              <p><strong>Correo:</strong> {selectedUser.correo}</p>
+              <p><strong>Empresa:</strong> {selectedUser.empresa}</p>
+              <p><strong>Cargo:</strong> {selectedUser.cargo}</p>
+              <p><strong>Sector:</strong> {selectedUser.sector}</p>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowViewModal(false)}>Cerrar</Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal Editar */}
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Usuario</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedUser && (
+            <div className="row g-2">
+              <div className="col-12 col-md-6">
+                <label className="form-label">Nombre</label>
+                <input
+                  type="text"
+                  name="nombre"
+                  className="form-control"
+                  value={selectedUser.nombre}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="col-12 col-md-6">
+                <label className="form-label">Apellido</label>
+                <input
+                  type="text"
+                  name="apellido"
+                  className="form-control"
+                  value={selectedUser.apellido}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="col-12 col-md-6">
+                <label className="form-label">Cédula</label>
+                <input
+                  type="text"
+                  name="cedula"
+                  className="form-control"
+                  value={selectedUser.cedula}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="col-12 col-md-6">
+                <label className="form-label">Celular</label>
+                <input
+                  type="text"
+                  name="celular"
+                  className="form-control"
+                  value={selectedUser.celular}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="col-12 col-md-6">
+                <label className="form-label">Correo</label>
+                <input
+                  type="email"
+                  name="correo"
+                  className="form-control"
+                  value={selectedUser.correo}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="col-12 col-md-6">
+                <label className="form-label">Empresa</label>
+                <input
+                  type="text"
+                  name="empresa"
+                  className="form-control"
+                  value={selectedUser.empresa}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="col-12 col-md-6">
+                <label className="form-label">Cargo</label>
+                <input
+                  type="text"
+                  name="cargo"
+                  className="form-control"
+                  value={selectedUser.cargo}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="col-12 col-md-6">
+                <label className="form-label">Sector</label>
+                <select
+                  name="sector"
+                  className="form-control"
+                  value={selectedUser.sector}
+                  onChange={handleEditChange}
+                >
+                  <option value="">Seleccione un sector</option>
+                  <option>Productores / Agroindustria</option>
+                  <option>Industriales / Manufactureros</option>
+                  <option>Comerciantes / Distribuidores</option>
+                  <option>Importadores</option>
+                  <option>Exportadores</option>
+                  <option>Salud</option>
+                  <option>Servicios Empresariales</option>
+                  <option>Logística y Transporte</option>
+                  <option>Finanzas y Seguros</option>
+                  <option>Tecnología e Innovación</option>
+                  <option>Turístico</option>
+                  <option>Servicios</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowEditModal(false)}>Cancelar</Button>
+          <Button variant="primary">Guardar Cambios</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

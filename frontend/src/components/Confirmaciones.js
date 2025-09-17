@@ -193,7 +193,7 @@ function Confirmaciones({ onNavigate }) {
 										<th className="text-white border-0">EVENTO</th>
 										<th className="text-white border-0">ESTADO</th>
 										<th className="text-white border-0">FECHA</th>
-										<th className="text-white border-0 text-end">ACCIONES</th>
+										<th className="text-white border-0 ">ACCIONES</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -208,7 +208,7 @@ function Confirmaciones({ onNavigate }) {
 												<span className={getEstadoBadgeClass(confirmacion.estado)}>{confirmacion.estado}</span>
 											</td>
 											<td className="border-0">{confirmacion.fecha}</td>
-											<td className="border-0 text-end">
+											<td className="border-0 ">
 												<button className="btn btn-link text-primary btn-ver-mas">
 													<i className="fa-solid fa-eye me-1"></i>Ver más
 												</button>

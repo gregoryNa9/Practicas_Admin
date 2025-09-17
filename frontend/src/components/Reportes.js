@@ -230,13 +230,13 @@ function Reportes({ onNavigate }) {
         <div className="card shadow-sm">
           <div className="card-body p-0">
             <div className="table-responsive">
-              <table className="table table-hover mb-0">
+              <table className="table table-hover mb-0 text-center">
                 <thead className="table-events-header">
                   <tr>
                     <th className="text-white border-0">NOMBRE COMPLETO</th>
                     <th className="text-white border-0">EMPRESA</th>
                     <th className="text-white border-0">EVENTOS ASISTIDOS</th>
-                    <th className="text-white border-0 text-end">ACCIONES</th>
+                    <th className="text-white border-0 ">ACCIONES</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -248,7 +248,7 @@ function Reportes({ onNavigate }) {
                       <td className="border-0">{item.nombre}</td>
                       <td className="border-0">{item.empresa}</td>
                       <td className="border-0">{item.eventos}</td>
-                      <td className="border-0 text-end">
+                      <td className="border-0 ">
                         <button className="btn btn-link btn-ver-mas" onClick={() => onNavigate('historial')}>
                           <i className="fa-solid fa-eye me-1"></i>Historial
                         </button>

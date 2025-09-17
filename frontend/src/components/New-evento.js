@@ -10,10 +10,11 @@ function NewEvento({ onNavigate }) {
     temaConferencia: '',
     fecha: '',
     lugar: '',
-    horaIngreso: '',
     horaInicio: '',
+    horaFin: '',
     codigoVestimenta: '',
-    organizadoPor: ''
+    organizadoPor: '',
+    estado: ''        // 👈 Campo estado al final
   });
 
   const handleInputChange = (e) => {
@@ -25,7 +26,6 @@ function NewEvento({ onNavigate }) {
   };
 
   const handleGuardar = () => {
-    // Lógica para guardar el evento
     console.log('Guardando evento:', formData);
   };
 
@@ -37,17 +37,18 @@ function NewEvento({ onNavigate }) {
       temaConferencia: '',
       fecha: '',
       lugar: '',
-      horaIngreso: '',
       horaInicio: '',
+      horaFin: '',
       codigoVestimenta: '',
-      organizadoPor: ''
+      organizadoPor: '',
+      estado: ''      // 👈 Reset también aquí
     });
   };
 
   return (
     <div className="d-flex min-vh-100 evento-form-container">
-		{/* Sidebar */}
-		<Menu onNavigate={onNavigate} activeItem="eventos" />
+      {/* Sidebar */}
+      <Menu onNavigate={onNavigate} activeItem="eventos" />
 
       {/* Main Content */}
       <main className="flex-grow-1 p-5">
@@ -69,9 +70,7 @@ function NewEvento({ onNavigate }) {
               <div className="row g-4">
                 <div className="col-md-6">
                   <div className="mb-3">
-                    <label className="evento-form-label">
-                      Nombre del evento:
-                    </label>
+                    <label className="evento-form-label">Nombre del evento:</label>
                     <input
                       type="text"
                       className="form-control evento-form-input"
@@ -82,26 +81,26 @@ function NewEvento({ onNavigate }) {
                   </div>
                 </div>
                 
+                {/* Categoría */}
                 <div className="col-md-6">
                   <div className="mb-3">
-                    <label className="evento-form-label">
-                      Categoría:
-                    </label>
-                    <input
-                      type="text"
+                    <label className="evento-form-label">Categoría:</label>
+                    <select
                       className="form-control evento-form-input"
                       name="categoria"
                       value={formData.categoria}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="">Seleccionar</option>
+                      <option value="Macroevento">Macroevento</option>
+                      <option value="Adicional">Adicional</option>
+                    </select>
                   </div>
                 </div>
 
                 <div className="col-md-6">
                   <div className="mb-3">
-                    <label className="evento-form-label">
-                      Tema del evento:
-                    </label>
+                    <label className="evento-form-label">Tema del evento:</label>
                     <input
                       type="text"
                       className="form-control evento-form-input"
@@ -114,9 +113,7 @@ function NewEvento({ onNavigate }) {
 
                 <div className="col-md-6">
                   <div className="mb-3">
-                    <label className="evento-form-label">
-                      Tema de conferencia:
-                    </label>
+                    <label className="evento-form-label">Tema de conferencia:</label>
                     <input
                       type="text"
                       className="form-control evento-form-input"
@@ -127,26 +124,28 @@ function NewEvento({ onNavigate }) {
                   </div>
                 </div>
 
+                {/* Fecha con ícono */}
                 <div className="col-md-6">
-                  <div className="mb-3">
-                    <label className="evento-form-label">
-                      Fecha:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control evento-form-input"
-                      name="fecha"
-                      value={formData.fecha}
-                      onChange={handleInputChange}
-                    />
+                  <div className="mb-3 position-relative">
+                    <label className="evento-form-label">Fecha:</label>
+                    <div className="input-group">
+                      <span className="input-group-text">
+                        <i className="fa-solid fa-calendar-days"></i>
+                      </span>
+                      <input
+                        type="date"
+                        className="form-control evento-form-input"
+                        name="fecha"
+                        value={formData.fecha}
+                        onChange={handleInputChange}
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="col-md-6">
                   <div className="mb-3">
-                    <label className="evento-form-label">
-                      Lugar:
-                    </label>
+                    <label className="evento-form-label">Lugar:</label>
                     <input
                       type="text"
                       className="form-control evento-form-input"
@@ -157,28 +156,12 @@ function NewEvento({ onNavigate }) {
                   </div>
                 </div>
 
+                {/* Hora inicio */}
                 <div className="col-md-6">
                   <div className="mb-3">
-                    <label className="evento-form-label">
-                      Hora de ingreso:
-                    </label>
+                    <label className="evento-form-label">Hora de inicio:</label>
                     <input
-                      type="text"
-                      className="form-control evento-form-input"
-                      name="horaIngreso"
-                      value={formData.horaIngreso}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="col-md-6">
-                  <div className="mb-3">
-                    <label className="evento-form-label">
-                      Hora de inicio:
-                    </label>
-                    <input
-                      type="text"
+                      type="time"
                       className="form-control evento-form-input"
                       name="horaInicio"
                       value={formData.horaInicio}
@@ -187,11 +170,23 @@ function NewEvento({ onNavigate }) {
                   </div>
                 </div>
 
+                {/* Hora fin */}
                 <div className="col-md-6">
                   <div className="mb-3">
-                    <label className="evento-form-label">
-                      Código de vestimenta:
-                    </label>
+                    <label className="evento-form-label">Hora de fin:</label>
+                    <input
+                      type="time"
+                      className="form-control evento-form-input"
+                      name="horaFin"
+                      value={formData.horaFin}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="evento-form-label">Código de vestimenta:</label>
                     <input
                       type="text"
                       className="form-control evento-form-input"
@@ -204,9 +199,7 @@ function NewEvento({ onNavigate }) {
 
                 <div className="col-md-6">
                   <div className="mb-3">
-                    <label className="evento-form-label">
-                      Organizado por:
-                    </label>
+                    <label className="evento-form-label">Organizado por:</label>
                     <input
                       type="text"
                       className="form-control evento-form-input"
@@ -216,6 +209,24 @@ function NewEvento({ onNavigate }) {
                     />
                   </div>
                 </div>
+
+                {/* Estado del evento (AL FINAL) */}
+                <div className="col-md-6">
+                  <div className="mb-3">
+                    <label className="evento-form-label">Estado del evento:</label>
+                    <select
+                      className="form-control evento-form-input"
+                      name="estado"
+                      value={formData.estado}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Seleccionar</option>
+                      <option value="Activo">Activo</option>
+                      <option value="Inactivo">Inactivo</option>
+                    </select>
+                  </div>
+                </div>
+
               </div>
             </form>
           </div>
@@ -223,11 +234,13 @@ function NewEvento({ onNavigate }) {
 
         {/* Action Buttons */}
         <div className="row evento-action-buttons g-2">
-          
           <div className="col-12 col-md-6 col-lg-3 d-grid">
             <button 
-              className="evento-btn-primary" onClick={() => onNavigate('lista-invitados')} >
-              <i className="fa-solid fa-clipboard-list me-2"></i>Lista de usuarios a invitar
+              className="evento-btn-primary" 
+              onClick={() => onNavigate('lista-invitados')}
+            >
+              <i className="fa-solid fa-clipboard-list me-2"></i>
+              Lista de usuarios a invitar
             </button>
           </div>
           <div className="col-12 col-md-6 col-lg-3 d-grid">
@@ -235,7 +248,8 @@ function NewEvento({ onNavigate }) {
               className="evento-btn-primary"
               onClick={handleGuardar}
             >
-              <i className="fa-solid fa-floppy-disk me-2"></i>Guardar
+              <i className="fa-solid fa-floppy-disk me-2"></i>
+              Guardar
             </button>
           </div>
           <div className="col-12 col-md-6 col-lg-3 d-grid">
@@ -253,4 +267,3 @@ function NewEvento({ onNavigate }) {
 }
 
 export default NewEvento;
-
