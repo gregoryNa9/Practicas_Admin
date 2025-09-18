@@ -222,60 +222,7 @@ function Confirmaciones({ onNavigate }) {
         </Modal.Footer>
       </Modal>
 
-      {/* Modal Editar */}
-      <Modal show={showEditar} onHide={handleCloseEditar}>
-        <Modal.Header closeButton>
-          <Modal.Title>Editar Evento</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedEvento && (
-            <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>Invitado</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="invitado"
-                  value={selectedEvento.invitado}
-                  onChange={handleEditChange}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Evento</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="evento"
-                  value={selectedEvento.evento}
-                  onChange={handleEditChange}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Estado</Form.Label>
-                <Form.Select
-                  name="estado"
-                  value={selectedEvento.estado}
-                  onChange={handleEditChange}
-                >
-                  <option value="Confirmado">Confirmado</option>
-                  <option value="Pendiente">Pendiente</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Fecha</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="fecha"
-                  value={selectedEvento.fecha}
-                  onChange={handleEditChange}
-                />
-              </Form.Group>
-            </Form>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseEditar}>Cancelar</Button>
-          <Button variant="success" onClick={handleGuardarCambios}>Guardar</Button>
-        </Modal.Footer>
-      </Modal>
+      
     </div>
   );
 }
