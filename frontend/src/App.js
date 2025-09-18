@@ -13,62 +13,65 @@ import ListaInvitados from './components/Lista-invitados';
 import EditarEvento from './components/Editar-evento';
 
 function App() {
-  const [currentView, setCurrentView] = useState('login'); // 'login', 'dashboard', 'invitaciones', 'eventos', 'confirmaciones'
+  const [currentView, setCurrentView] = useState('login'); // Vista inicial: login
 
-  // Función para manejar la navegación
+  // Función para manejar la navegación entre vistas
   const handleNavigation = (view) => {
     setCurrentView(view);
   };
 
-  // Renderizar vista actual
+  // ────────────────────────────────
+  // Renderizar vistas según currentView
+  // ────────────────────────────────
   if (currentView === 'login') {
     return <Login onLogin={() => setCurrentView('dashboard')} />;
   }
 
   if (currentView === 'dashboard') {
-    return <Dashboard onNavigate={handleNavigation} />;
+    return <Dashboard onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
   if (currentView === 'invitaciones') {
-    return <Invitaciones onNavigate={handleNavigation} />;
+    return <Invitaciones onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
   if (currentView === 'eventos') {
-    return <Eventos onNavigate={handleNavigation} />;
+    return <Eventos onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
   if (currentView === 'new-evento') {
-    return <NewEvento onNavigate={handleNavigation} />;
+    return <NewEvento onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
   if (currentView === 'form-registro') {
-    return <FormRegistro onNavigate={handleNavigation} />;
+    return <FormRegistro onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
   if (currentView === 'confirmaciones') {
-    return <Confirmaciones onNavigate={handleNavigation} />;
+    return <Confirmaciones onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
   if (currentView === 'reportes') {
-    return <Reportes onNavigate={handleNavigation} />;
+    return <Reportes onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
-  if (currentView === 'historial') {  
-    return <Historial onNavigate={handleNavigation} />;
+  if (currentView === 'historial') {
+    return <Historial onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
   if (currentView === 'new-user') {
-    return <NewUser onNavigate={handleNavigation} />;
+    return <NewUser onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
   if (currentView === 'lista-invitados') {
-    return <ListaInvitados onNavigate={handleNavigation} />;
+    return <ListaInvitados onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
   if (currentView === 'editar-evento') {
-    return <EditarEvento onNavigate={handleNavigation} />;
+    return <EditarEvento onNavigate={handleNavigation} activeItem={currentView} />;
   }
 
+  // Vista por defecto (seguridad adicional)
   return <Login onLogin={() => setCurrentView('dashboard')} />;
 }
 
